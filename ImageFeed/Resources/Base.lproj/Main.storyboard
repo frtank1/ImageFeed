@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="images-list-controller">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24152"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="images-list-scene">
+            <objects>
+                <viewController id="images-list-controller" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="images-list-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="0.0" sectionFooterHeight="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="images-table">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="200" id="images-list-cell" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="images-list-cell" id="images-cell-content">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="cell-photo">
+                                                    <rect key="frame" x="16" y="4" width="361" height="192"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="feedPhoto"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cell-date">
+                                                    <rect key="frame" x="24" y="170" width="200" height="18"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="feedDate"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="cell-date-height"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="custom" translatesAutoresizingMaskIntoConstraints="NO" id="cell-like">
+                                                    <rect key="frame" x="333" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="feedLike"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="cell-like-width"/>
+                                                        <constraint firstAttribute="height" constant="44" id="cell-like-height"/>
+                                                    </constraints>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cell-photo" firstAttribute="top" secondItem="images-cell-content" secondAttribute="top" constant="4" id="cell-photo-top"/>
+                                                <constraint firstItem="cell-photo" firstAttribute="leading" secondItem="images-cell-content" secondAttribute="leading" constant="16" id="cell-photo-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="cell-photo" secondAttribute="trailing" constant="16" id="cell-photo-trailing"/>
+                                                <constraint firstAttribute="bottom" secondItem="cell-photo" secondAttribute="bottom" constant="4" id="cell-photo-bottom"/>
+                                                <constraint firstItem="cell-like" firstAttribute="top" secondItem="cell-photo" secondAttribute="top" id="cell-like-top"/>
+                                                <constraint firstItem="cell-photo" firstAttribute="trailing" secondItem="cell-like" secondAttribute="trailing" id="cell-like-trailing"/>
+                                                <constraint firstItem="cell-date" firstAttribute="leading" secondItem="cell-photo" secondAttribute="leading" constant="8" id="cell-date-leading"/>
+                                                <constraint firstItem="cell-photo" firstAttribute="bottom" secondItem="cell-date" secondAttribute="bottom" constant="8" id="cell-date-bottom"/>
+                                                <constraint firstItem="cell-photo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cell-date" secondAttribute="trailing" constant="8" id="cell-date-trailing"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cellImage" destination="cell-photo" id="cell-photo-outlet"/>
+                                            <outlet property="dateLabel" destination="cell-date" id="cell-date-outlet"/>
+                                            <outlet property="likeButton" destination="cell-like" id="cell-like-outlet"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="images-safe-area"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="images-table" firstAttribute="top" secondItem="images-list-view" secondAttribute="top" id="images-table-top"/>
+                            <constraint firstItem="images-table" firstAttribute="leading" secondItem="images-list-view" secondAttribute="leading" id="images-table-leading"/>
+                            <constraint firstItem="images-list-view" firstAttribute="trailing" secondItem="images-table" secondAttribute="trailing" id="images-table-trailing"/>
+                            <constraint firstItem="images-list-view" firstAttribute="bottom" secondItem="images-table" secondAttribute="bottom" id="images-table-bottom"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="images-table" id="images-table-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="images-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
