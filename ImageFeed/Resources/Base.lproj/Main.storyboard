@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="images-list-controller">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tab-bar-controller">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24152"/>
@@ -7,6 +7,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <scene sceneID="tab-bar-scene">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" id="tab-bar-controller" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="main-tab-bar">
+                        <rect key="frame" x="0.0" y="769" width="393" height="83"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="images-list-controller" kind="relationship" relationship="viewControllers" id="tab-feed-relationship"/>
+                        <segue destination="profile-controller" kind="relationship" relationship="viewControllers" id="tab-profile-relationship"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tab-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
         <scene sceneID="images-list-scene">
             <objects>
                 <viewController id="images-list-controller" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,9 +96,50 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="images-table" id="images-table-outlet"/>
+                        <segue destination="single-image-controller" kind="presentation" identifier="ShowSingleImage" modalPresentationStyle="fullScreen" id="show-single-image-segue"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="images-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <scene sceneID="profile-scene">
+            <objects>
+                <viewController id="profile-controller" customClass="ProfileViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="profile-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="profile-safe-area"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="profile-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <scene sceneID="single-image-scene">
+            <objects>
+                <viewController storyboardIdentifier="SingleImageViewController" modalPresentationStyle="fullScreen" id="single-image-controller" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="single-image-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="single-image-scroll-view">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="single-image-safe-area"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="single-image-scroll-view" firstAttribute="leading" secondItem="single-image-view" secondAttribute="leading" id="single-image-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="single-image-scroll-view" secondAttribute="trailing" id="single-image-scroll-trailing"/>
+                            <constraint firstItem="single-image-scroll-view" firstAttribute="top" secondItem="single-image-view" secondAttribute="top" id="single-image-scroll-top"/>
+                            <constraint firstAttribute="bottom" secondItem="single-image-scroll-view" secondAttribute="bottom" id="single-image-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="single-image-scroll-view" id="single-image-scroll-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="single-image-first-responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
