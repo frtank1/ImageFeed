@@ -4,6 +4,27 @@
     classes = {};
     objectVersion = 56;
     objects = {
+        F1000000000000000000000A = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+        A1000000000000000000000A = {isa = PBXBuildFile; fileRef = F1000000000000000000000A; };
+        F10000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
+        A10000000000000000000001 = {isa = PBXBuildFile; fileRef = F10000000000000000000001; };
+        F10000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+        A10000000000000000000002 = {isa = PBXBuildFile; fileRef = F10000000000000000000002; };
+        F10000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
+        A10000000000000000000003 = {isa = PBXBuildFile; fileRef = F10000000000000000000003; };
+        F10000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
+        A10000000000000000000004 = {isa = PBXBuildFile; fileRef = F10000000000000000000004; };
+        F10000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthCallbackParser.swift; sourceTree = "<group>"; };
+        A10000000000000000000005 = {isa = PBXBuildFile; fileRef = F10000000000000000000005; };
+        F10000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
+        A10000000000000000000006 = {isa = PBXBuildFile; fileRef = F10000000000000000000006; };
+        F10000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+        A10000000000000000000007 = {isa = PBXBuildFile; fileRef = F10000000000000000000007; };
+        F10000000000000000000008 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+        A10000000000000000000008 = {isa = PBXBuildFile; fileRef = F10000000000000000000008; };
+        G10000000000000000000001 = {isa = PBXGroup; children = (F10000000000000000000001, F10000000000000000000002, F10000000000000000000003, F10000000000000000000004, F10000000000000000000005, F10000000000000000000006, F10000000000000000000007, F10000000000000000000008, F1000000000000000000000A); path = Authentication; sourceTree = "<group>"; };
+        F10000000000000000000009 = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
+        A10000000000000000000009 = {isa = PBXBuildFile; fileRef = F10000000000000000000009; };
         A80000000000000000000001 = {isa = PBXBuildFile; fileRef = F80000000000000000000001; };
         A80000000000000000000002 = {isa = PBXBuildFile; fileRef = F80000000000000000000002; };
         A80000000000000000000003 = {isa = PBXBuildFile; fileRef = F80000000000000000000003; };
@@ -27,7 +48,7 @@
         F90000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
         F90000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
         G80000000000000000000001 = {isa = PBXGroup; children = (G80000000000000000000002, G80000000000000000000005); sourceTree = "<group>"; };
-        G80000000000000000000002 = {isa = PBXGroup; children = (F80000000000000000000001, F80000000000000000000002, G80000000000000000000003, G90000000000000000000001, G90000000000000000000002, G90000000000000000000003, G80000000000000000000004); path = ImageFeed; sourceTree = "<group>"; };
+        G80000000000000000000002 = {isa = PBXGroup; children = (F80000000000000000000001, F80000000000000000000002, G80000000000000000000003, G90000000000000000000001, G90000000000000000000002, G90000000000000000000003, G80000000000000000000004, G10000000000000000000001, F10000000000000000000009); path = ImageFeed; sourceTree = "<group>"; };
         G80000000000000000000003 = {isa = PBXGroup; children = (F80000000000000000000003, F80000000000000000000004); path = ImagesList; sourceTree = "<group>"; };
         G80000000000000000000004 = {isa = PBXGroup; children = (V80000000000000000000001, V80000000000000000000002, F80000000000000000000007, F80000000000000000000008); path = Resources; sourceTree = "<group>"; };
         G80000000000000000000005 = {isa = PBXGroup; children = (F80000000000000000000009); name = Products; sourceTree = "<group>"; };
@@ -36,8 +57,8 @@
         G90000000000000000000003 = {isa = PBXGroup; children = (F90000000000000000000003); path = TabBar; sourceTree = "<group>"; };
         V80000000000000000000001 = {isa = PBXVariantGroup; children = (F80000000000000000000005); name = Main.storyboard; sourceTree = "<group>"; };
         V80000000000000000000002 = {isa = PBXVariantGroup; children = (F80000000000000000000006); name = LaunchScreen.storyboard; sourceTree = "<group>"; };
-        B80000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A80000000000000000000001, A80000000000000000000002, A80000000000000000000003, A80000000000000000000004, A90000000000000000000001, A90000000000000000000002, A90000000000000000000003); runOnlyForDeploymentPostprocessing = 0; };
-        B80000000000000000000002 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A80000000000000000000005, A80000000000000000000006, A80000000000000000000007); runOnlyForDeploymentPostprocessing = 0; };
+        B80000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A80000000000000000000001, A80000000000000000000002, A80000000000000000000003, A80000000000000000000004, A90000000000000000000001, A90000000000000000000002, A90000000000000000000003, A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000A); runOnlyForDeploymentPostprocessing = 0; };
+        B80000000000000000000002 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A80000000000000000000005, A80000000000000000000006, A80000000000000000000007, A10000000000000000000009); runOnlyForDeploymentPostprocessing = 0; };
         B80000000000000000000003 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
         T80000000000000000000001 = {
             isa = PBXNativeTarget;
