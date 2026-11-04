@@ -8,7 +8,7 @@ final class SingleImageViewController: UIViewController {
         }
     }
 
-    private let scrollView = UIScrollView()
+    @IBOutlet private weak var scrollView: UIScrollView!
     private let imageView = UIImageView()
     private let shareButton = UIButton(type: .custom)
     private let backButton = UIButton(type: .custom)
@@ -32,12 +32,10 @@ final class SingleImageViewController: UIViewController {
     }
 
     private func configureViews() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delegate = self
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        view.addSubview(scrollView)
 
         imageView.contentMode = .scaleAspectFit
         imageView.isAccessibilityElement = true
@@ -63,10 +61,6 @@ final class SingleImageViewController: UIViewController {
         view.addSubview(shareButton)
 
         NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             navigationBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navigationBackground.topAnchor.constraint(equalTo: view.topAnchor),
@@ -89,7 +83,7 @@ final class SingleImageViewController: UIViewController {
         scrollView.contentSize = imageView.bounds.size
         shareButton.isEnabled = image != nil
         lastViewportSize = .zero
-        rescaleImage()
+        view.setNeedsLayout()
     }
 
     private func rescaleImage() {

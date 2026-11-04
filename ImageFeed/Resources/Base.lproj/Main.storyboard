@@ -121,9 +121,23 @@
                     <view key="view" contentMode="scaleToFill" id="single-image-view">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="single-image-scroll-view">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </scrollView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="single-image-safe-area"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="single-image-scroll-view" firstAttribute="leading" secondItem="single-image-view" secondAttribute="leading" id="single-image-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="single-image-scroll-view" secondAttribute="trailing" id="single-image-scroll-trailing"/>
+                            <constraint firstItem="single-image-scroll-view" firstAttribute="top" secondItem="single-image-view" secondAttribute="top" id="single-image-scroll-top"/>
+                            <constraint firstAttribute="bottom" secondItem="single-image-scroll-view" secondAttribute="bottom" id="single-image-scroll-bottom"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="single-image-scroll-view" id="single-image-scroll-outlet"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="single-image-first-responder" sceneMemberID="firstResponder"/>
             </objects>
