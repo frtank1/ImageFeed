@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tab-bar-controller">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="splash-controller">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24152"/>
@@ -7,9 +7,143 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <scene sceneID="splash-scene">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" id="splash-controller" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="splash-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="splash-logo-image">
+                                <rect key="frame" x="159" y="387.16" width="75" height="77.68"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="splash-logo-width"/>
+                                    <constraint firstAttribute="height" constant="77.68" id="splash-logo-height"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="splash-safe-area"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="splash-logo-image" firstAttribute="centerX" secondItem="splash-view" secondAttribute="centerX" id="splash-logo-center-x"/>
+                            <constraint firstItem="splash-logo-image" firstAttribute="centerY" secondItem="splash-view" secondAttribute="centerY" id="splash-logo-center-y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="auth-navigation-controller" kind="presentation" identifier="ShowAuthenticationScreen" modalPresentationStyle="fullScreen" animates="NO" id="show-authentication-screen-segue"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="splash-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <scene sceneID="auth-navigation-scene">
+            <objects>
+                <navigationController storyboardIdentifier="AuthNavigationController" navigationBarHidden="YES" id="auth-navigation-controller" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="auth-navigation-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="auth-controller" kind="relationship" relationship="rootViewController" id="auth-root-relationship"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="auth-navigation-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <scene sceneID="auth-scene">
+            <objects>
+                <viewController storyboardIdentifier="AuthViewController" id="auth-controller" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="auth-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="unsplash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="auth-logo">
+                                <rect key="frame" x="166.5" y="396" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="auth-logo-width"/>
+                                    <constraint firstAttribute="height" constant="60" id="auth-logo-height"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="auth-login-button">
+                                <rect key="frame" x="16" y="680" width="361" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="auth-login-height"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Войти">
+                                    <color key="titleColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapLoginButton:" destination="auth-controller" eventType="touchUpInside" id="auth-login-action"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="auth-safe-area"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="auth-logo" firstAttribute="centerX" secondItem="auth-view" secondAttribute="centerX" id="auth-logo-center-x"/>
+                            <constraint firstItem="auth-logo" firstAttribute="centerY" secondItem="auth-view" secondAttribute="centerY" id="auth-logo-center-y"/>
+                            <constraint firstItem="auth-login-button" firstAttribute="leading" secondItem="auth-safe-area" secondAttribute="leading" constant="16" id="auth-login-leading"/>
+                            <constraint firstItem="auth-safe-area" firstAttribute="trailing" secondItem="auth-login-button" secondAttribute="trailing" constant="16" id="auth-login-trailing"/>
+                            <constraint firstItem="auth-safe-area" firstAttribute="bottom" secondItem="auth-login-button" secondAttribute="bottom" constant="90" id="auth-login-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="auth-navigation-item"/>
+                    <connections>
+                        <outlet property="loginButton" destination="auth-login-button" id="auth-login-outlet"/>
+                        <segue destination="web-view-controller" kind="show" identifier="ShowWebView" id="show-web-view-segue"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="auth-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <scene sceneID="web-view-scene">
+            <objects>
+                <viewController storyboardIdentifier="WebViewViewController" id="web-view-controller" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="web-root-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auth-web-view">
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="auth-web-progress">
+                                <rect key="frame" x="0.0" y="103" width="393" height="2"/>
+                                <color key="progressTintColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </progressView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="web-safe-area"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="auth-web-view" firstAttribute="leading" secondItem="web-root-view" secondAttribute="leading" id="auth-web-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="auth-web-view" secondAttribute="trailing" id="auth-web-trailing"/>
+                            <constraint firstItem="auth-web-view" firstAttribute="top" secondItem="web-safe-area" secondAttribute="top" id="auth-web-top"/>
+                            <constraint firstAttribute="bottom" secondItem="auth-web-view" secondAttribute="bottom" id="auth-web-bottom"/>
+                            <constraint firstItem="auth-web-progress" firstAttribute="leading" secondItem="web-safe-area" secondAttribute="leading" id="auth-progress-leading"/>
+                            <constraint firstItem="web-safe-area" firstAttribute="trailing" secondItem="auth-web-progress" secondAttribute="trailing" id="auth-progress-trailing"/>
+                            <constraint firstItem="auth-web-progress" firstAttribute="top" secondItem="web-safe-area" secondAttribute="top" id="auth-progress-top"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="web-navigation-item"/>
+                    <connections>
+                        <outlet property="webView" destination="auth-web-view" id="auth-web-outlet"/>
+                        <outlet property="progressView" destination="auth-web-progress" id="auth-progress-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="web-first-responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
         <scene sceneID="tab-bar-scene">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="tab-bar-controller" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="tab-bar-controller" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="main-tab-bar">
                         <rect key="frame" x="0.0" y="769" width="393" height="83"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -143,4 +277,8 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash_logo" width="75" height="77.68"/>
+        <image name="unsplash_logo" width="60" height="60"/>
+    </resources>
 </document>
