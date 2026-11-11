@@ -3,14 +3,15 @@ import UIKit
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
 
-    @IBOutlet private var cellImage: UIImageView!
-    @IBOutlet private var dateLabel: UILabel!
-    @IBOutlet private var likeButton: UIButton!
+    @IBOutlet private var cellImage: UIImageView?
+    @IBOutlet private var dateLabel: UILabel?
+    @IBOutlet private var likeButton: UIButton?
 
     private let dateGradient = CAGradientLayer()
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        guard let cellImage else { return }
         cellImage.layer.cornerRadius = 16
         cellImage.clipsToBounds = true
         dateGradient.colors = [
@@ -22,6 +23,7 @@ final class ImagesListCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        guard let cellImage else { return }
         contentView.layoutIfNeeded()
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -37,15 +39,15 @@ final class ImagesListCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        cellImage.image = nil
-        dateLabel.text = nil
-        likeButton.setImage(nil, for: .normal)
+        cellImage?.image = nil
+        dateLabel?.text = nil
+        likeButton?.setImage(nil, for: .normal)
     }
 
     func configure(image: UIImage?, dateText: String?, isLiked: Bool) {
-        cellImage.image = image
-        dateLabel.text = dateText
+        cellImage?.image = image
+        dateLabel?.text = dateText
         let imageName = isLiked ? "like_button_on" : "like_button_off"
-        likeButton.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        likeButton?.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
     }
 }

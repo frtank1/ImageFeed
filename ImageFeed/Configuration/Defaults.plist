@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
     <key>RedirectURI</key>
-    <string>https://unsplash.com/oauth/authorize/native</string>
+    <string>frtank1.imagefeed://oauth/callback</string>
 </dict>
 </plist>

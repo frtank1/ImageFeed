@@ -7,11 +7,11 @@ protocol AuthViewControllerDelegate: AnyObject {
 final class AuthViewController: UIViewController {
     weak var delegate: AuthViewControllerDelegate?
 
-    @IBOutlet private weak var loginButton: UIButton!
+    @IBOutlet private weak var loginButton: UIButton?
 
     private var tokenStorage = OAuth2TokenStorage.shared
     private var configurationProvider: () throws -> AuthConfiguration = { try AuthConfiguration.load() }
-    private var serviceProvider: (AuthConfiguration) -> OAuthTokenFetching = { OAuth2Service(configuration: $0) }
+    private var serviceProvider: (AuthConfiguration) -> OAuthTokenFetching = { _ in OAuth2Service.shared }
     private var configuration: AuthConfiguration?
     private var service: OAuthTokenFetching?
     private weak var activeWebViewController: WebViewViewController?
@@ -20,7 +20,7 @@ final class AuthViewController: UIViewController {
     func configure(
         tokenStorage: OAuth2TokenStorage,
         configurationProvider: @escaping () throws -> AuthConfiguration = { try AuthConfiguration.load() },
-        serviceProvider: @escaping (AuthConfiguration) -> OAuthTokenFetching = { OAuth2Service(configuration: $0) }
+        serviceProvider: @escaping (AuthConfiguration) -> OAuthTokenFetching = { _ in OAuth2Service.shared }
     ) {
         self.tokenStorage = tokenStorage
         self.configurationProvider = configurationProvider
@@ -35,7 +35,7 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.layer.cornerRadius = 16
+        loginButton?.layer.cornerRadius = 16
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -65,14 +65,15 @@ final class AuthViewController: UIViewController {
             setLoading(true)
             performSegue(withIdentifier: "ShowWebView", sender: nil)
         } catch {
+            print(OAuth2Diagnostics.requestError(error))
             showError(error)
         }
     }
 
     private func setLoading(_ isLoading: Bool) {
-        loginButton.isEnabled = !isLoading
-        loginButton.setTitle(isLoading ? "Вход…" : "Войти", for: .normal)
-        loginButton.alpha = isLoading ? 0.6 : 1
+        loginButton?.isEnabled = !isLoading
+        loginButton?.setTitle(isLoading ? "Вход…" : "Войти", for: .normal)
+        loginButton?.alpha = isLoading ? 0.6 : 1
     }
 
     private func finishAttempt() {
@@ -98,7 +99,7 @@ final class AuthViewController: UIViewController {
     }
 
     private func exchangeCode(_ code: String, attempt: UUID) {
-        service?.fetchOAuthToken(code) { [weak self] result in
+        service?.fetchAuthToken(code: code) { [weak self] result in
             guard let self, self.attemptID == attempt else { return }
             self.finishAttempt()
             switch result {

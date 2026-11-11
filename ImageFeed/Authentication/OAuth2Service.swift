@@ -1,40 +1,40 @@
 import Foundation
 
 protocol OAuthTokenFetching: AnyObject {
-    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void)
+    func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void)
     func cancel()
 }
 
 final class OAuth2Service: OAuthTokenFetching {
     typealias Completion = (Result<String, Error>) -> Void
 
-    private let configuration: AuthConfiguration
-    private let session: URLSession
+    static let shared = OAuth2Service()
+
+    private let session = URLSession.shared
     private var task: URLSessionDataTask?
     private var requestID: UUID?
     private var completion: Completion?
 
-    init(configuration: AuthConfiguration, session: URLSession = .shared) {
-        self.configuration = configuration
-        self.session = session
-    }
+    private init() {}
 
     deinit {
         task?.cancel()
     }
 
-    func fetchOAuthToken(_ code: String, completion: @escaping Completion) {
+    func fetchAuthToken(code: String, completion: @escaping Completion) {
         guard Thread.isMainThread else {
             DispatchQueue.main.async {
-                self.fetchOAuthToken(code, completion: completion)
+                self.fetchAuthToken(code: code, completion: completion)
             }
             return
         }
         cancel()
         let request: URLRequest
         do {
+            let configuration = try AuthConfiguration.load()
             request = try configuration.tokenRequest(code: code)
         } catch {
+            print(OAuth2Diagnostics.requestError(error))
             DispatchQueue.main.async {
                 completion(.failure(error))
             }
@@ -82,6 +82,7 @@ final class OAuth2Service: OAuthTokenFetching {
             return .failure(error)
         }
         guard let response = response as? HTTPURLResponse else {
+            print("OAuth: invalid HTTP response")
             return .failure(OAuth2ServiceError.invalidResponse)
         }
         guard (200..<300).contains(response.statusCode) else {
@@ -89,6 +90,7 @@ final class OAuth2Service: OAuthTokenFetching {
             return .failure(OAuth2ServiceError.httpStatus(response.statusCode))
         }
         guard let data, !data.isEmpty else {
+            print("OAuth: empty response body")
             return .failure(OAuth2ServiceError.emptyData)
         }
         let body: OAuthTokenResponseBody
@@ -99,6 +101,7 @@ final class OAuth2Service: OAuthTokenFetching {
             return .failure(OAuth2ServiceError.decodingFailed)
         }
         guard !body.accessToken.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            print("OAuth: empty token in response")
             return .failure(OAuth2ServiceError.emptyToken)
         }
         return .success(body.accessToken)
@@ -106,6 +109,27 @@ final class OAuth2Service: OAuthTokenFetching {
 }
 
 enum OAuth2Diagnostics {
+    static func requestError(_ error: Error) -> String {
+        let category: String
+        switch error {
+        case AuthConfigurationError.missingKeys:
+            category = "missing configuration"
+        case AuthConfigurationError.invalidSecretsFile:
+            category = "invalid configuration file"
+        case AuthConfigurationError.invalidURL:
+            category = "invalid URL"
+        case AuthConfigurationError.invalidRedirectURI:
+            category = "invalid redirect URI"
+        case AuthConfigurationError.invalidScopes:
+            category = "invalid scopes"
+        case OAuth2ServiceError.invalidAuthorizationCode:
+            category = "invalid authorization code"
+        default:
+            category = "request construction failed"
+        }
+        return "OAuth: \(category)"
+    }
+
     static func networkError(_ error: Error) -> String {
         if let error = error as? URLError {
             return "OAuth: network error (\(error.code.rawValue))"

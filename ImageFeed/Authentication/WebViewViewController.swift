@@ -10,8 +10,8 @@ protocol WebViewViewControllerDelegate: AnyObject {
 final class WebViewViewController: UIViewController {
     weak var delegate: WebViewViewControllerDelegate?
 
-    @IBOutlet private weak var webView: WKWebView!
-    @IBOutlet private weak var progressView: UIProgressView!
+    @IBOutlet private weak var webView: WKWebView?
+    @IBOutlet private weak var progressView: UIProgressView?
 
     private var configuration: AuthConfiguration?
     private let state = UUID().uuidString
@@ -44,7 +44,7 @@ final class WebViewViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
 
-        webView.navigationDelegate = self
+        webView?.navigationDelegate = self
         loadAuthorizationPage()
     }
 
@@ -52,7 +52,7 @@ final class WebViewViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barStyle = .default
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        guard !isFinished, progressObservation == nil else { return }
+        guard !isFinished, progressObservation == nil, let webView else { return }
         progressObservation = webView.observe(\.estimatedProgress, options: [.initial, .new]) { [weak self] webView, _ in
             let progress = webView.estimatedProgress
             DispatchQueue.main.async {
@@ -69,23 +69,25 @@ final class WebViewViewController: UIViewController {
 
     private func loadAuthorizationPage() {
         guard let configuration else {
+            print(OAuth2Diagnostics.requestError(AuthConfigurationError.missingKeys))
             finish(with: .failure(AuthConfigurationError.missingKeys))
             return
         }
         do {
             let url = try configuration.authorizationURL(state: state)
-            progressView.isHidden = false
-            progressView.progress = 0
-            webView.load(URLRequest(url: url))
+            progressView?.isHidden = false
+            progressView?.progress = 0
+            webView?.load(URLRequest(url: url))
         } catch {
+            print(OAuth2Diagnostics.requestError(error))
             finish(with: .failure(error))
         }
     }
 
     private func updateProgress(_ progress: Double) {
         guard !isFinished else { return }
-        progressView.setProgress(Float(progress), animated: true)
-        progressView.isHidden = abs(progress - 1) <= 0.0001
+        progressView?.setProgress(Float(progress), animated: true)
+        progressView?.isHidden = abs(progress - 1) <= 0.0001
     }
 
     @objc private func cancelAuthorization() {
@@ -96,7 +98,7 @@ final class WebViewViewController: UIViewController {
         guard !isFinished else { return }
         isFinished = true
         progressObservation?.invalidate()
-        webView.stopLoading()
+        webView?.stopLoading()
         switch result {
         case .success(let code):
             delegate?.webViewViewController(self, didAuthenticateWithCode: code)
@@ -113,7 +115,8 @@ final class WebViewViewController: UIViewController {
         guard !isFinished,
               (error as NSError).code != NSURLErrorCancelled,
               presentedViewController == nil else { return }
-        progressView.isHidden = true
+        print(OAuth2Diagnostics.networkError(error))
+        progressView?.isHidden = true
         let alert = UIAlertController(
             title: "Не удалось загрузить страницу",
             message: "Проверьте подключение к интернету и попробуйте ещё раз.",
@@ -132,6 +135,7 @@ final class WebViewViewController: UIViewController {
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         guard let url = navigationAction.request.url, let configuration else {
+            print("OAuth: navigation URL or configuration is missing")
             decisionHandler(.cancel)
             return
         }
@@ -144,11 +148,11 @@ extension WebViewViewController: WKNavigationDelegate {
         }
     }
 
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation?, withError error: Error) {
         showLoadingError(error)
     }
 
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation?, withError error: Error) {
         showLoadingError(error)
     }
 }
