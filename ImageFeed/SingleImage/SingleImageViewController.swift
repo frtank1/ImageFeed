@@ -8,7 +8,7 @@ final class SingleImageViewController: UIViewController {
         }
     }
 
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView?
     private let imageView = UIImageView()
     private let shareButton = UIButton(type: .custom)
     private let backButton = UIButton(type: .custom)
@@ -27,11 +27,12 @@ final class SingleImageViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard scrollView.bounds.size != lastViewportSize else { return }
+        guard let scrollView, scrollView.bounds.size != lastViewportSize else { return }
         rescaleImage()
     }
 
     private func configureViews() {
+        guard let scrollView else { return }
         scrollView.delegate = self
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsHorizontalScrollIndicator = false
@@ -77,6 +78,7 @@ final class SingleImageViewController: UIViewController {
     }
 
     private func updateImage() {
+        guard let scrollView else { return }
         scrollView.zoomScale = 1
         imageView.image = image
         imageView.frame = CGRect(origin: .zero, size: image?.size ?? .zero)
@@ -87,6 +89,7 @@ final class SingleImageViewController: UIViewController {
     }
 
     private func rescaleImage() {
+        guard let scrollView else { return }
         let viewport = scrollView.bounds.size
         guard let image,
               image.size.width > 0,
@@ -111,6 +114,7 @@ final class SingleImageViewController: UIViewController {
     }
 
     private func centerImage() {
+        guard let scrollView else { return }
         let horizontalInset = max(0, (scrollView.bounds.width - scrollView.contentSize.width) / 2)
         let verticalInset = max(0, (scrollView.bounds.height - scrollView.contentSize.height) / 2)
         scrollView.contentInset = UIEdgeInsets(

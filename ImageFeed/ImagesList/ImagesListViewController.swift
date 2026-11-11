@@ -1,7 +1,7 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView?
 
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private let photosName = Array(0..<20).map { String($0) }
@@ -19,9 +19,9 @@ final class ImagesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        tableView?.dataSource = self
+        tableView?.delegate = self
+        tableView?.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

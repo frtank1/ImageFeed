@@ -14,19 +14,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="splash_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="launch-logo">
-                                <rect key="frame" x="160" y="400.75" width="73" height="75.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="launch-logo">
+                                <rect key="frame" x="159" y="387.16" width="75" height="77.68"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="launch-logo-width"/>
-                                    <constraint firstAttribute="height" constant="75.5" id="launch-logo-height"/>
+                                    <constraint firstAttribute="width" constant="75" id="launch-logo-width"/>
+                                    <constraint firstAttribute="height" constant="77.68" id="launch-logo-height"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="launch-safe-area"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="launch-logo" firstAttribute="centerX" secondItem="launch-safe-area" secondAttribute="centerX" id="launch-logo-center-x"/>
-                            <constraint firstItem="launch-logo" firstAttribute="centerY" secondItem="launch-safe-area" secondAttribute="centerY" id="launch-logo-center-y"/>
+                            <constraint firstItem="launch-logo" firstAttribute="centerX" secondItem="launch-view" secondAttribute="centerX" id="launch-logo-center-x"/>
+                            <constraint firstItem="launch-logo" firstAttribute="centerY" secondItem="launch-view" secondAttribute="centerY" id="launch-logo-center-y"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -35,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash_screen_logo" width="73" height="75.5"/>
+        <image name="splash_logo" width="75" height="77.68"/>
     </resources>
 </document>
